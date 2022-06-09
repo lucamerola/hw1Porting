@@ -30,6 +30,7 @@ Route::post('login', 'LoginController@login');
 Route::get("home", function(){
     return view('home');
 });
+Route::get("openingCocktail", "CocktailController@openingCocktail");
 //Route::get('register/email/{email}', 'RegisterController@checkEmail');
 
 //Route::get('home', 'HomeController@index');

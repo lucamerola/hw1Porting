@@ -5,6 +5,7 @@ function onResponseJSON(response){
 function onJSON(json){
     const lista_cocktail = document.getElementById("lista-cocktail");
     lista_cocktail.innerHTML="";
+    console.log(json);
     for(drink of json){
         let div_scheda = document.createElement('div');
         //console.log(drink);
@@ -138,9 +139,9 @@ function updateValue(event){
         lista_cocktail_ricercati.classList.remove("visible-flex");
         lista_cocktail_ricercati.classList.add("hidden");
     }
-    fetch("http://localhost/filter.php?f="+event.target.value).then(onResponseJSON).then(onJSON_Filter);
+    fetch("filter.php?f="+event.target.value).then(onResponseJSON).then(onJSON_Filter);
 }
 
 var ricerca=document.getElementsByTagName("input")[0];
 ricerca.addEventListener('input', updateValue);
-fetch("http://localhost/cocktail.php").then(onResponseJSON).then(onJSON);
+fetch("openingCocktail").then(onResponseJSON).then(onJSON);
