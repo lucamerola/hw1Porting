@@ -128,5 +128,8 @@
                 </div>
             </div>
         </div>
+        @if(Route::has('register'))
+            <a href="{{ url('register') }}">Registrati</a>
+        @endif
     </body>
 </html>

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +13,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+    //return redirect('register2');
 });
+
+Route::get('register', "RegisterController@index")->name('register');
+//Route::get('register',[RegisterController::class, 'index'])->name('register.index');
+//Route::get('register', 'RegisterController@index')->name('register');
+//Route::get('register', 'App\Http\Controllers\RegisterController@index');
+Route::post('register', 'RegisterController@register');
+
+Route::get('logout', 'LoginController@logout');
+Route::get('login', 'LoginController@index');
+Route::post('login', 'LoginController@login');
+
+Route::get("home", function(){
+    return view('home');
+});
+//Route::get('register/email/{email}', 'RegisterController@checkEmail');
+
+//Route::get('home', 'HomeController@index');
