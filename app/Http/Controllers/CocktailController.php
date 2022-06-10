@@ -24,13 +24,13 @@ class CocktailController extends BaseController{
         if(Session::get('user_id')){
             #Se c'è una sessione attiva
             #prendo i cocktail a cui l'utente ha messo il like
-            $likes_drink = Likes::where('id', Session::get('user_id') );
+            $likes_drink = Likes::where('cod_utente', Session::get('user_id') )->get();
             #creo una lista che dovrà contenere gli id dei cocktail
             #a cui l'utente ha messo il like
             $drinks_code=array();
             foreach($likes_drink as $drinkLiked){
                 #inserisco questi valori nella lista
-                $drinks_code[]=$drinkLiked;
+                $drinks_code[]=$drinkLiked['cod_drink'];
             }
             for($i=0;$i<12;$i++){
                 $maxJ=count($drinks_code);

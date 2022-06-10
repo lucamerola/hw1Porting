@@ -78,7 +78,7 @@ function onJSON_Like(json){
 
 function mettiTogliLike(event){
     const drink_target = event.target.parentElement.parentElement.dataset.cardId;
-    fetch("http://localhost/mettiTogliLike.php?drinkId="+drink_target).then(onResponseJSON).then(onJSON_Like);
+    fetch("mettiTogliLike/"+drink_target).then(onResponseJSON).then(onJSON_Like);
 }
 
 function onJSON_Filter(json){
@@ -139,7 +139,7 @@ function updateValue(event){
         lista_cocktail_ricercati.classList.remove("visible-flex");
         lista_cocktail_ricercati.classList.add("hidden");
     }
-    fetch("filter.php?f="+event.target.value).then(onResponseJSON).then(onJSON_Filter);
+    fetch("filter/"+event.target.value).then(onResponseJSON).then(onJSON_Filter);
 }
 
 var ricerca=document.getElementsByTagName("input")[0];
