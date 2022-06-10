@@ -34,6 +34,8 @@ Route::get("openingCocktail", "CocktailController@openingCocktail");
 Route::get("mettiTogliLike/{idCocktail}", "LikeController@mettiTogliLike");
 Route::get("preferiti","LikeController@index");
 Route::get("ritornaPreferiti","LikeController@ritornaPreferiti");
+Route::get("filtra/{filtro}","CocktailController@filtra");
+
 //Route::get('register/email/{email}', 'RegisterController@checkEmail');
 
 //Route::get('home', 'HomeController@index');

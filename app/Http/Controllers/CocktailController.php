@@ -48,4 +48,49 @@ class CocktailController extends BaseController{
     
         return response()->json($my_drinks_List);
     }
+
+    public function filtra(Request $request){
+        $filtro=$request->route('filtro');
+        if(!$filtro){
+            $response=array();
+            $response['error']=true;
+            $response['errorType']="Non è presente il nome da filtrare";
+            return response()->json_encode($response);
+        }
+        $url="https://www.thecocktaildb.com/api/json/v1/1/search.php?f=".$filtro[0];
+        $json = Http::get($url);
+        if ($json->failed()) abort(500);
+        $list_cocktail_to_filter=array();
+        $list_drinks_API = json_decode($json, 1);
+        $list_drinks_API=$list_drinks_API['drinks'];
+        $max_cocktail = count($list_drinks_API);
+        if($max_cocktail>12){
+            $max_cocktail=12; //voglio stamparne solo 12
+        }
+        for($i=0;$i<$max_cocktail;$i++){
+            if(strpos(strtolower($list_drinks_API[$i]['strDrink']), $filtro)!==false){
+                $list_cocktail_to_filter[]=$list_drinks_API[$i];
+            }
+        }
+        if(Session::get('user_id')){
+            #Se l'utente è loggato, aggiungo 
+            #i like che aveva messo
+            #su questi cocktail
+            $likes_drink = Likes::where('cod_utente', Session::get('user_id') )->get();
+            $drinks_code=array();
+            foreach($likes_drink as $drinkLiked){
+                $drinks_code[]=$drinkLiked['cod_drink'];
+            }
+            $maxI=count($list_cocktail_to_filter);
+            for($i=0;$i<$maxI;$i++){
+                $maxJ=count($drinks_code);
+                for($j=0;$j<$maxJ;$j++){
+                    if($drinks_code[$j]==$list_cocktail_to_filter[$i]['idDrink']){
+                        $list_cocktail_to_filter[$i]['like']=true;
+                    }
+                }
+            }
+        }
+        return response()->json($list_cocktail_to_filter);
+    }
 }

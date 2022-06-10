@@ -1,4 +1,5 @@
 function onResponseJSON(response){
+    console.log(response);
     return response.json();
 }
 
@@ -139,7 +140,7 @@ function updateValue(event){
         lista_cocktail_ricercati.classList.remove("visible-flex");
         lista_cocktail_ricercati.classList.add("hidden");
     }
-    fetch("filter/"+event.target.value).then(onResponseJSON).then(onJSON_Filter);
+    fetch("filtra/"+event.target.value).then(onResponseJSON).then(onJSON_Filter);
 }
 
 var ricerca=document.getElementsByTagName("input")[0];
